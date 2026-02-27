@@ -5,10 +5,12 @@ on:
       - opened
       - synchronize
       - reopened
+    branches:
+      - master
   workflow_dispatch:
   push:
     branches:
-      - mater
+      - master
 jobs:
   deploy:
     runs-on: ubuntu-latest
