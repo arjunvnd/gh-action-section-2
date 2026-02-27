@@ -6,6 +6,9 @@ on:
       - synchronize
       - reopened
   workflow_dispatch:
+  push:
+    branches:
+      - mater
 jobs:
   deploy:
     runs-on: ubuntu-latest
