@@ -57,6 +57,6 @@ jobs:
         with:
           name: dist-files
       - name: Output filename
-        run: echo $ {{ needs.build.outputs.script-file-name }}
+        run: echo ${{ needs.build.outputs.script-file-name }}
       - name: Show outputs
         run: ls
