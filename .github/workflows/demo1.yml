@@ -17,6 +17,12 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
+      - name: Cache dependensies
+        uses: actions/cache@v5
+        with:
+          path: ~/.npm # The path to cache
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
       - name: Install node modules
         run: npm ci
       - name: Run unit test cases
@@ -29,6 +35,11 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
+      - name: Cache dependensies
+        uses: actions/cache@v5
+        with:
+          path: ~/.npm # The path to cache
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
       - name: Install node modules
         run: npm ci
       - name: Build application
