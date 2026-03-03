@@ -1,7 +1,7 @@
 name: Event Demo 1
 on:
   pull_request:
-    types: 
+    types:
       - opened
       - synchronize
       - reopened
@@ -12,18 +12,35 @@ on:
     branches:
       - master
 jobs:
-  deploy:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - name: Output event data
-        run: echo "${{ toJSON(github) }}"
       - name: Get code
         uses: actions/checkout@v3
       - name: Install node modules
         run: npm ci
       - name: Run unit test cases
         run: npm run test
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install node modules
+        run: npm ci
       - name: Build application
         run: npm run build
-      - name: Deploy applicaiton
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-files
+          path: |
+            dist
+            package.json
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deply applicaiton
         run: echo "Deploying application...."
